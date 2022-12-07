@@ -11,10 +11,10 @@ def DueData(inputdata):
     for i in range(0,22):
         CheckSum += inputdata[i] # Add up data.
     if inputdata[22] == (CheckSum & 0xff): # Stop if checksum is wrong.
-        meaVoltage = int.from_bytes(inputdata[6:10], "big") / 1000.0 # V
-        meaCurrent = int.from_bytes(inputdata[10:14], "big") / 1000.0 # A
-        meaPower   = int.from_bytes(inputdata[14:18], "big") /1000.0 # W
-        meaPowerUsage = int.from_bytes(inputdata[18:22], "big") /10000.0 # Wh
+        meaVoltage = int.from_bytes(inputdata[6:10], "big", signed=True) / 1000.0 # V
+        meaCurrent = int.from_bytes(inputdata[10:14], "big", signed=True) / 1000.0 # A
+        meaPower   = int.from_bytes(inputdata[14:18], "big", signed=True) /1000.0 # W
+        meaPowerUsage = int.from_bytes(inputdata[18:22], "big", signed=True) /10000.0 # Wh
         pub_Voltage(meaVoltage)
         pub_Power(meaCurrent,meaPower,meaPowerUsage)
 
